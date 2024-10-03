@@ -4,13 +4,13 @@ from .models import ToDoList, Item
 # Create your views here.
 def index(response,id):
     req = ToDoList.objects.get(id = id)
-    item = req.item_set.get()
-    return HttpResponse("<h1>%s%s</h1> " %(req,item.text))
+    # item = req.item_set.get()
+    return render(response, 'main/list.html',{"name": req})
 
 def name(response,name):
     req = ToDoList.objects.get(name = name)
     item = req.item_set.get()
-    return HttpResponse("<h1>%s</h1>" %(item.text))
+    return render(response, 'main/home.html', {"name": req, "listData":item})
 
 
 def homepage(response):
