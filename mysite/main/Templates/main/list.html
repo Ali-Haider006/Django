@@ -1,18 +1,35 @@
-{% extends './base.html' %}
+{% extends "./base.html" %}
 {%  block title %}
 {{name}}
 {% endblock %}
 
 {% block content %}
 <p><strong>Following are the tasks for {{name}} list</strong></p>
+<form action="#" method="post">
+    {% csrf_token %}
 <ul>
 {% for item in name.item_set.all %}
-{% if item.complete == False %}
-<p>{{item}} <br> status:{{item.complete}}</p>
-{%else%}
+{% if item.complete == True %}
+<p> <input type="checkbox" name="{{item.id}}" value="clicked" id="" checked> {{item}} <br> status:{{item.complete}}</p>
+
+{% endif %}
+{%endfor%}
+
 <h6>Task Completed</h6>
-<p>{{item}} <br> status:{{item.complete}}</p>
+{% for item in name.item_set.all %}
+{% if item.complete == False %}
+<p> <input type="checkbox" name="c{{item.id}}" value="clicked" id=""> {{item}} <br> status:{{item.complete}}</p>
 {% endif %}
 {%endfor%}
 </ul>
+<button type="submit", name="save", value="save">Save</button>
+<input type="text" name="new" >
+
+<input type="radio" id="True" name="itemComplete" value="True">
+<label for="True">True</label><br>
+<input type="radio" id="False" name="itemComplete" value="False">
+<label for="False">False</label><br>
+
+<button type="submit", name="newItem", value="newItem">Add</button>
+</form>
 {% endblock %}
