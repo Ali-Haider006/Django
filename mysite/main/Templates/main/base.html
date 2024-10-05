@@ -1,13 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <style>
+        .sidenav {
+            height: 100%; /* Full-height */
+            width: 200px; /* Set the width of the sidebar */
+            position: fixed; /* Fixed Sidebar (stay in place) */
+            top: 0; /* Stay at the top */
+            left: 0;
+            background-color: #111; /* Black */
+            padding-top: 20px; /* Add some padding on top */
+        }
+
+        .sidenav a {
+            padding: 8px 8px 8px 16px;
+            text-decoration: none;
+            font-size: 25px;
+            color: white;
+            display: block;
+        }
+
+        .sidenav a:hover {
+            background-color: #575757;
+            color: white;
+        }
+        .main{
+            margin-left: 200px;
+            padding: 0px 10px;
+        }
+    </style>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}Error{% endblock %}</title>
+    <title>{% block title %}My List{% endblock %}</title>
 </head>
 <body>
-    <div>
-        {% block content %}List Not Found{% endblock %}
+    <div class="sidenav">
+        <a href="/4">4th List</a>
+        <a href="/">Home</a>
+        <a href="/5">Saturday ToDo List</a>
+    </div>
+    <div class="main">
+        {% block content %}{% endblock %}
 
     </div>
 </body>

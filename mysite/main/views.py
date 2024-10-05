@@ -5,14 +5,14 @@ from .form import CreateNewList
 
 # Create your views here.
 def index(response,id):
-    req = ToDoList.objects.get(id = id)
-    if response.method == "POST":
-       if response.POST.get("save"):
-           for item in req.item_set.all():
-               if response.POST.get(str(item.id)) == "clicked":
-                   item.complete = False
-               else: 
-                    item.complete = True
+    req = ToDoList.objects.get(id=id)
+    # if response.method == "POST":
+    #    if response.POST.get("save"):
+    #        for item in req.item_set.all():
+    #            if response.POST.get(str(item.id)) == "clicked":
+    #                item.complete = False
+    #            else: 
+    #                 item.complete = True
 
     if response.POST.get("newItem"):
             txt = response.POST.get("new")
@@ -26,13 +26,14 @@ def index(response,id):
     return render(response, 'main/list.html',{"name": req})
 
 def name(response,name):
-    req = ToDoList.objects.get(name = name)
-    item = req.item_set.get()
-    return render(response, 'main/home.html', {"name": req, "listData":item})
+    # req = ToDoList.objects.get(name = name)
+    # item = req.item_set.get()
+    # return render(response, 'main/list.html', {"name": req, "listData":item})
+    return HttpResponse('<h1>Name of List</h1>')
 
 
 def homepage(response):
-    return HttpResponse("<h1> First Page</h1>")
+    return render(response,"main/home.html")
 
 def create(response,form):
     form = CreateNewList()
