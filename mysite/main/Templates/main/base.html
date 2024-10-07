@@ -35,13 +35,19 @@
 </head>
 <body>
     <div class="sidenav">
-        <a href="/4">4th List</a>
+        <!-- <a href="/4">4th List</a> -->
         <a href="/">Home</a>
-        <a href="/5">Saturday ToDo List</a>
+        <!-- <a href="/5">Saturday ToDo List</a> -->
+        <a href="/register">Register </a>
+        <a href="/view">View Your List </a>
+        <a href="/create">Create a list</a>
     </div>
     <div class="main">
+        {% if user.is_authenticated%}
         {% block content %}{% endblock %}
-
+        {% else %}
+        <p><a href="/">You need to login first</a></p>
+        {%endif%}
     </div>
 </body>
 </html>

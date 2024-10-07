@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import HttpResponseRedirect
 from .models import ToDoList, Item
 from .form import CreateNewList
 
@@ -26,32 +26,33 @@ def index(response,id):
     return render(response, 'main/list.html',{"name": req})
 
 def name(response,name):
-    # req = ToDoList.objects.get(name = name)
-    # item = req.item_set.get()
-    # return render(response, 'main/list.html', {"name": req, "listData":item})
-    return HttpResponse('<h1>Name of List</h1>')
+    req = ToDoList.objects.get(name = name)
+    item = req.item_set.get()
+    return render(response, 'main/list.html', {"name": req, "listData":item})
+    # return HttpResponse('<h1>Name of List</h1>')
 
 
 def homepage(response):
     return render(response,"main/home.html")
 
-def create(response,form):
-    form = CreateNewList()
-    return render(response, 'main/create.html', {"form":form})
+# def create(response,form):
+#     form = CreateNewList()
+#     return render(response, 'main/create.html', {"form":form})
 
-# def create(request):
-#     if request.method == "POST":
-#         form = CreateNewList(request.POST)
-#         if form.is_valid():  # Validate the form
-#             name = form.cleaned_data['name']
-#             check = form.cleaned_data['check']
-            
-#             # Do something with the form data (like saving to the database)
-#             print(f"Form submitted with: Name - {name}, Check - {check}")
-            
-#             # Redirect or render a success page
-#             return render(request, 'main/success.html')
-#     else:
-#         form = CreateNewList()
+def create(request):
+    if request.method == "POST":
+        form = CreateNewList(request.POST)
+        if form.is_valid():  # Validate the form
+            name = form.cleaned_data['name']
+            t = ToDoList(name= name)
+            t.save()
+            request.user.ToDoList.add(t)
+            # Redirect or render a success page
+            return HttpResponseRedirect("/%i"% t.id)
+    else:
+        form = CreateNewList()
     
-#     return render(request, 'main/create.html', {"form": form})
+    return render(request, 'main/create.html', {"form": form})
+
+def view(response):
+    return render(response, 'main/view.html',{})

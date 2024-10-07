@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,11 +9,15 @@
 <body>
     <h1>Create a New List</h1>
 
-    <form method="POST">
+    {% if user.is_authenticated %}
+    <form method="post" action="{% url 'create' %}">
         {% csrf_token %}
         {{ form.as_p }}
-        <button type="submit">Submit</button>
+        <button type="submit">Create</button>
     </form>
+{% else %}
+    <p>You need to <a href="{% url 'login' %}">login</a> to create a new list.</p>
+{% endif %}
 
 </body>
 </html>
